@@ -1,5 +1,5 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom';
 
 import List from './List';
 import Form from './Form';
@@ -9,17 +9,22 @@ class App extends React.Component {
         usersList: [],
     }
 
+    addUser = user => {
+        this.setState({
+            usersList: [...this.state.usersList, user]            
+        })
+    }
+
     render() {
         const  { usersList } = this.state;
 
         return (
             <section>
-                <Form />
+                <Form addItem={ this.addUser } />
                 <List items={ usersList } />
             </section>
         )
     }
 }
 
-const root = createRoot(document.querySelector('#root'));
-root.render(<App />);
+ReactDOM.render(<App />, document.querySelector('#root'));
